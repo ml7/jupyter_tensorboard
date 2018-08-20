@@ -10,39 +10,6 @@ from tornado.testing import AsyncHTTPTestCase
 
 
 @pytest.fixture(scope="session")
-def tf_logs(tmpdir_factory):
-
-    import numpy as np
-    import tensorflow as tf
-    x = np.random.rand(5)
-    y = 3 * x + 1 + 0.05 * np.random.rand(5)
-
-    a = tf.Variable(0.1)
-    b = tf.Variable(0.)
-    err = a*x+b-y
-
-    loss = tf.norm(err)
-    tf.summary.scalar("loss", loss)
-    tf.summary.scalar("a", a)
-    tf.summary.scalar("b", b)
-    merged = tf.summary.merge_all()
-
-    optimizor = tf.train.GradientDescentOptimizer(0.01).minimize(loss)
-
-    with tf.Session() as sess:
-        log_dir = tmpdir_factory.mktemp("logs", numbered=False)
-        log_dir = str(log_dir)
-
-        train_write = tf.summary.FileWriter(log_dir, sess.graph)
-        tf.global_variables_initializer().run()
-        for i in range(1000):
-            _, merged_ = sess.run([optimizor, merged])
-            train_write.add_summary(merged_, i)
-
-    return log_dir
-
-
-@pytest.fixture(scope="session")
 def nb_app():
     sys.argv = ["--port=6005", "--ip=127.0.0.1", "--no-browser", "--debug"]
     from notebook.notebookapp import NotebookApp
