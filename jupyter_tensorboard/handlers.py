@@ -21,11 +21,11 @@ def load_jupyter_server_extension(nb_app):
     try:
         from .tensorboard_manager import manager
     except ImportError:
-        nb_app.log.info("import tensorboard error, check tensorflow install")
+        nb_app.log.info("Could not import TensorBoard. Please check your installation.")
         handlers = [
             (ujoin(
                 base_url, r"/tensorboard.*"),
-                TensorboardErrorHandler),
+                TensorBoardErrorHandler),
         ]
     else:
         web_app.settings["tensorboard_manager"] = manager
@@ -34,7 +34,7 @@ def load_jupyter_server_extension(nb_app):
         handlers = [
             (ujoin(
                 base_url, r"/tensorboard/(?P<name>\w+)%s" % path_regex),
-                TensorboardHandler),
+                TensorBoardHandler),
             (ujoin(
                 base_url, r"/api/tensorboard"),
                 api_handlers.TbRootHandler),
@@ -44,10 +44,10 @@ def load_jupyter_server_extension(nb_app):
         ]
 
     web_app.add_handlers('.*$', handlers)
-    nb_app.log.info("jupyter_tensorboard extension loaded.")
+    nb_app.log.info("Successfully loaded the jupyter_tensorboard extension.")
 
 
-class TensorboardHandler(IPythonHandler):
+class TensorBoardHandler(IPythonHandler):
 
     @web.authenticated
     def get(self, name, path):
@@ -71,5 +71,5 @@ class TensorboardHandler(IPythonHandler):
             raise web.HTTPError(404)
 
 
-class TensorboardErrorHandler(IPythonHandler):
+class TensorBoardErrorHandler(IPythonHandler):
     pass

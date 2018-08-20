@@ -8,7 +8,7 @@ from notebook import nbextensions, serverextensions, extensions
 from . import __version__, __name__ as _pkg_name
 
 
-class ToggleJupyterTensorboardApp(
+class ToggleJupyterTensorBoardApp(
         nbextensions.ToggleNBExtensionApp,
         serverextensions.ToggleServerExtensionApp):
     """App to toggle server extension jupyter_nbextensions_configurator."""
@@ -33,7 +33,7 @@ class ToggleJupyterTensorboardApp(
         if len(conflicting_flags.intersection(set(argv))) > 1:
             raise serverextensions.ArgumentConflict(
                 'cannot specify more than one of user, sys_prefix, or system')
-        return super(ToggleJupyterTensorboardApp,
+        return super(ToggleJupyterTensorBoardApp,
                      self).parse_command_line(argv)
 
     @property
@@ -70,21 +70,21 @@ Usage
             self.toggle_server_extension_python(_pkg_name)
 
 
-class EnableJupyterTensorboardApp(
-        ToggleJupyterTensorboardApp):
+class EnableJupyterTensorBoardApp(
+        ToggleJupyterTensorBoardApp):
     """App to enable server extension jupyter_nbextensions_configurator."""
     name = 'jupyter tensorboard enable'
     _toggle_value = True
 
 
-class DisableJupyterTensorboardApp(
-        ToggleJupyterTensorboardApp):
+class DisableJupyterTensorBoardApp(
+        ToggleJupyterTensorBoardApp):
     """App to disable server extension jupyter_nbextensions_configurator."""
     name = 'jupyter tensorboard disable'
     _toggle_value = False
 
 
-class JupyterTensorboardApp(extensions.BaseExtensionApp):
+class JupyterTensorBoardApp(extensions.BaseExtensionApp):
     """Root level jupyter_nbextensions_configurator app."""
 
     name = 'jupyter tensorboard'
@@ -94,10 +94,10 @@ class JupyterTensorboardApp(extensions.BaseExtensionApp):
         'the jupyter_tensorboard extension')
     subcommands = dict(
         enable=(
-            EnableJupyterTensorboardApp,
+            EnableJupyterTensorBoardApp,
             'Enable the jupyter_tensorboard extension.'),
         disable=(
-            DisableJupyterTensorboardApp,
+            DisableJupyterTensorBoardApp,
             'Disable the jupyter_tensorboard extension.'),
     )
     examples = '\n'.join([
@@ -109,7 +109,7 @@ class JupyterTensorboardApp(extensions.BaseExtensionApp):
 
     def start(self):
         """Perform the App's actions as configured"""
-        super(JupyterTensorboardApp, self).start()
+        super(JupyterTensorBoardApp, self).start()
 
         # The above should have called a subcommand and raised NoStart; if we
         # get here, it didn't, so we should self.log.info a message.
@@ -117,7 +117,7 @@ class JupyterTensorboardApp(extensions.BaseExtensionApp):
         sys.exit("Please supply at least one subcommand: %s" % subcmds)
 
 
-main = JupyterTensorboardApp.launch_instance
+main = JupyterTensorBoardApp.launch_instance
 
 
 if __name__ == '__main__':  # pragma: no cover

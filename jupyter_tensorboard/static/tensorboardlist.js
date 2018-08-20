@@ -6,8 +6,8 @@ define([
     'tree/js/notebooklist',
 ], function($, Jupyter, dialog, utils, notebooklist) {
     "use strict";
-    
-    var TensorboardList = function (selector, options) {
+
+    var TensorBoardList = function (selector, options) {
         this.base_url = Jupyter.notebook_list.base_url;
         this.init_elements();
         this.element_name = options.element_name || 'running';
@@ -21,10 +21,10 @@ define([
         }
     };
 
-    var help_information = ["Check that tensorflow(-gpu)>=1.3 is installed.",
-        "Check that jupyter, tensorflow and jupyter_tensorboard have the same python version.",
+    var help_information = [
+        "Check that jupyter and jupyter_tensorboard have the same python version.",
         "Check that jupyter_tensorboard is installed via pip list. If you want uninstall this extension, run <span>jupyter nbextension disable jupyter_tensorboard/tree --user</span> and <span>jupyter nbextension uninstall jupyter_tensorboard --user</span>;",
-        "Copy your browser console logs to submit a new issue in <a href='https://github.com/lspvic/jupyter_tensorboard'>https://github.com/lspvic/jupyter_tensorboard</a>",
+        "Copy your browser console logs to submit a new issue in <a href='https://github.com/ml7/jupyter_tensorboard'>https://github.com/ml7/jupyter_tensorboard</a>",
     ];
     var ajax_error = function(){
         dialog.modal({
@@ -37,9 +37,9 @@ define([
         });
     };
 
-    TensorboardList.prototype = Object.create(notebooklist.NotebookList.prototype);
+    TensorBoardList.prototype = Object.create(notebooklist.NotebookList.prototype);
 
-    TensorboardList.prototype.init_elements = function(){
+    TensorBoardList.prototype.init_elements = function(){
         // link nbextension css file
         var static_url = this.base_url + "nbextensions/jupyter_tensorboard/";
         $('head').append(
@@ -48,37 +48,37 @@ define([
             .attr('type', 'text/css')
             .attr('href', static_url + 'style.css')
         );
-        
+
         // tensorboad running list panel
         $("#accordion").append('<div class="panel panel-default">\
               <div class="panel-heading">\
-                <a data-toggle="collapse" data-target="#collapseTensorboard" href="#">\
-                  Tensorboard Instances\
+                <a data-toggle="collapse" data-target="#collapseTensorBoard" href="#">\
+                  TensorBoard Instances\
                 </a>\
               </div>\
-              <div id="collapseTensorboard" class="collapse in">\
+              <div id="collapseTensorBoard" class="collapse in">\
                 <div class="panel-body">\
                   <div id="tensorboard_list">\
                     <div id="tensorboard_list_header" class="row list_placeholder">\
-                      <div> There are no tensorboard instances running. </div>\
+                      <div> There are no TensorBoard instances running. </div>\
                     </div>\
                   </div>\
                 </div>\
               </div>\
             </div>');
-        
+
         // new tensorboard menu on current directory
         $("#new-menu").append('<li role="presentation" id="new-tensorboard">\
-                <a role="menuitem" tabindex="-1" href="#">Tensorboard</a>\
+                <a role="menuitem" tabindex="-1" href="#">TensorBoard</a>\
             </li>');
-            
+
         // tensorboard button when select a directory
         $(".dynamic-buttons:first").append('<button id="#tensorboard-button"\
-            title="Create Tensorboard Instance with selected logdir"\
-            class="tensorboard-button btn btn-default btn-xs">Tensorboard</button>');
+            title="Create TensorBoard Instance with selected logdir"\
+            class="tensorboard-button btn btn-default btn-xs">TensorBoard</button>');
     };
-    
-    TensorboardList.prototype.bind_events = function () {
+
+    TensorBoardList.prototype.bind_events = function () {
         var that = this;
         $('#refresh_running_list').click(function () {
             that.load_tensorboards();
@@ -91,7 +91,7 @@ define([
         }, this));
     };
 
-    TensorboardList.prototype.new_tensorboard = function (logdir) {
+    TensorBoardList.prototype.new_tensorboard = function (logdir) {
             var that = this;
             var settings = {
                 type : "POST",
@@ -101,7 +101,7 @@ define([
                 success : function (data, status, xhr) {
                     that.load_tensorboards();
                     var name = data.name;
-                    var loc = utils.url_path_join(that.base_url, 'tensorboard', 
+                    var loc = utils.url_path_join(that.base_url, 'tensorboard',
                         utils.encode_uri_components(name)) + "/";
                     var win = window.open(loc, 'tensorboard' + name);
                 },
@@ -109,7 +109,7 @@ define([
             };
             var url = utils.url_path_join(this.base_url, 'api/tensorboard');
             utils.ajax(url, settings);
-            
+
             var list_items = $('.list_item');
             for (var i=0; i<list_items.length; i++) {
                 var $list_item = $(list_items[i]);
@@ -121,7 +121,7 @@ define([
             Jupyter.notebook_list._selection_changed();
     };
 
-    TensorboardList.prototype.load_tensorboards = function() {
+    TensorBoardList.prototype.load_tensorboards = function() {
         var url = utils.url_path_join(this.base_url, 'api/tensorboard');
         utils.ajax(url, {
             type: "GET",
@@ -136,7 +136,7 @@ define([
         });
     };
 
-    TensorboardList.prototype.tensorboards_loaded = function (data) {
+    TensorBoardList.prototype.tensorboards_loaded = function (data) {
         this.tensorboads = data;
         this.clear_list();
         var item, term;
@@ -151,7 +151,7 @@ define([
         $('#tensorboard_list_header').toggle(data.length === 0);
     };
 
-    TensorboardList.prototype.add_link = function(name, item) {
+    TensorBoardList.prototype.add_link = function(name, item) {
         item.data('term-name', name);
         item.find(".item_name").text("tensorboard/" + name + "/");
         item.find(".item_icon").addClass("fa fa-tensorboard");
@@ -162,7 +162,7 @@ define([
         link.attr('target', 'tensorboard' + name);
     };
 
-    TensorboardList.prototype.add_logdir = function(logdir, item){
+    TensorBoardList.prototype.add_logdir = function(logdir, item){
         var running_indicator = item.find(".item_buttons").text('');
         var kernel_name = $('<div/>')
             .addClass('kernel-name')
@@ -170,17 +170,17 @@ define([
             .appendTo(running_indicator);
     };
 
-    TensorboardList.prototype.add_reload_time = function(time, item){
+    TensorBoardList.prototype.add_reload_time = function(time, item){
         if(time == null){
-            item.find(".item_modified").text(" Tensorboard Loading");
+            item.find(".item_modified").text(" TensorBoard Loading");
         }else{
             var reload_time = new Date();
             reload_time.setTime(time * 1000);
-            item.find(".item_modified").attr("title", "Tensorboard last reload summary files time: " + reload_time.toLocaleString()).text("Last Reload:" + reload_time.toLocaleTimeString());
+            item.find(".item_modified").attr("title", "TensorBoard last reload summary files time: " + reload_time.toLocaleString()).text("Last Reload:" + reload_time.toLocaleTimeString());
         }
     }
 
-    TensorboardList.prototype.add_shutdown_button = function(name, item) {
+    TensorBoardList.prototype.add_shutdown_button = function(name, item) {
         var that = this;
         var shutdown_button = $("<button/>").text("Shutdown").addClass("btn btn-xs btn-warning").
             click(function (e) {
@@ -201,5 +201,5 @@ define([
         item.find(".item_buttons").append(shutdown_button);
     };
 
-    return {TensorboardList: TensorboardList};
+    return {TensorBoardList: TensorBoardList};
 });

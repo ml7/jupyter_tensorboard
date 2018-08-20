@@ -6,7 +6,7 @@ define(["jquery",
         
     function load_ipython_extension(){
         
-        var tensorboard_list = new tensorboardlist.TensorboardList("#tensorboard_list", {});
+        var tensorboard_list = new tensorboardlist.TensorBoardList("#tensorboard_list", {});
         
         var _selection_changed = Jupyter.notebook_list.__proto__._selection_changed;
         Jupyter.notebook_list.__proto__._selection_changed = function(){
