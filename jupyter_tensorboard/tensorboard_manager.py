@@ -103,7 +103,7 @@ class TensorBoardManger(dict):
                 instance.thread.stop = True
             del self[name], self._logdir_dict[instance.logdir]
         else:
-            raise Exception("There's no tensorboard instance named %s" % name)
+            raise Exception("There's no TensorBoard instance named %s" % name)
 
 
 manager = TensorBoardManger()
