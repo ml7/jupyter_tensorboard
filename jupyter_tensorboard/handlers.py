@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from tornado import web
 from tornado.wsgi import WSGIContainer
 from notebook.base.handlers import IPythonHandler

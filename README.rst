@@ -1,9 +1,9 @@
-Jupyter-Tensorboard: Start Tensorboard in Jupyter Notebook
+Jupyter-TensorBoard: Start TensorBoard in Jupyter Notebook
 =================================================================
 
 |build-status| |pypi-status| |pypi-pyversions| |tf-versions| |docker-stars|
 
-Tensorboard Integration for Jupyter Notebook.
+TensorBoard Integration for Jupyter Notebook.
 
 A jupyter server extension for better collaboration between jupyter notebook and tensorboard (a visualization tool for tensorflow), providing graphical user interface for tensorboard start, manage and stop in jupyter interface. It provides:
 
@@ -29,7 +29,7 @@ Installation
 Use jupyter-tensorboard in docker containers
 ++++++++++++++++++++++++++++++++++++++++++++
 
-Docker image for ``Jupyter Notebook Scientific Python Stack + Tensorflow + Tensorboard`` is available, just with the command:
+Docker image for ``Jupyter Notebook Scientific Python Stack + Tensorflow + TensorBoard`` is available, just with the command:
 
 .. code-block:: bash
 

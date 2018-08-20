@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-
 import sys
 import time
 import logging
@@ -25,7 +23,6 @@ def nb_app():
 
 
 class TestJupyterExtension(AsyncHTTPTestCase):
-
     @pytest.fixture(autouse=True)
     def init_jupyter(self, tf_logs, nb_app, tmpdir_factory):
         self.app = nb_app
@@ -36,7 +33,6 @@ class TestJupyterExtension(AsyncHTTPTestCase):
         return self.app
 
     def test_tensorboard(self):
-
         content = {"logdir": self.log_dir}
         content_type = {"Content-Type": "application/json"}
         response = self.fetch(

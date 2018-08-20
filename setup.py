@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 import io
 import re
@@ -27,21 +24,17 @@ def find_version(*file_paths):
 
 
 def enable_extension_after_install():
-    from jupyter_tensorboard.application import (
-        EnableJupyterTensorboardApp,
-    )
-    EnableJupyterTensorboardApp.launch_instance(argv=[])
+    from jupyter_tensorboard.application import EnableJupyterTensorBoardApp
+    EnableJupyterTensorBoardApp.launch_instance(argv=[])
 
 
 class EnableExtensionDevelop(develop):
-
     def run(self):
         develop.run(self)
         enable_extension_after_install()
 
 
 class EnableExtensionInstall(install):
-
     def run(self):
         install.run(self)
         enable_extension_after_install()
@@ -60,7 +53,7 @@ setup(
         'Start tensorboard in Jupyter! '
         'Jupyter notebook integration for tensorboard.'),
     long_description=read("README.rst"),
-    keywords=['Jupyter', 'Notebook', 'Tensorboard', 'Tensorflow', ],
+    keywords=['Jupyter', 'Notebook', 'TensorBoard', 'Tensorflow', ],
     packages=[name],
     package_data={name: ["static/*"]},
     platforms="Linux, Mac OS X, Windows",

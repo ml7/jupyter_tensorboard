@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import copy
 import sys
 
@@ -70,15 +68,13 @@ Usage
             self.toggle_server_extension_python(_pkg_name)
 
 
-class EnableJupyterTensorBoardApp(
-        ToggleJupyterTensorBoardApp):
+class EnableJupyterTensorBoardApp(ToggleJupyterTensorBoardApp):
     """App to enable server extension jupyter_nbextensions_configurator."""
     name = 'jupyter tensorboard enable'
     _toggle_value = True
 
 
-class DisableJupyterTensorBoardApp(
-        ToggleJupyterTensorBoardApp):
+class DisableJupyterTensorBoardApp(ToggleJupyterTensorBoardApp):
     """App to disable server extension jupyter_nbextensions_configurator."""
     name = 'jupyter tensorboard disable'
     _toggle_value = False

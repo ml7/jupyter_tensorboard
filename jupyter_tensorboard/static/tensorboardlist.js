@@ -172,7 +172,7 @@ define([
 
     TensorBoardList.prototype.add_reload_time = function(time, item){
         if(time == null){
-            item.find(".item_modified").text(" TensorBoard Loading");
+            item.find(".item_modified").text("TensorBoard Loading");
         }else{
             var reload_time = new Date();
             reload_time.setTime(time * 1000);
