@@ -36,9 +36,9 @@ class TbRootHandler(APIHandler):
             .new_instance(data["logdir"], reload_interval=reload_interval)
         )
         self.finish(json.dumps({
-                'name': entry.name,
-                'logdir':  _trim_notebook_dir(entry.logdir),
-                'reload_time': entry.thread.reload_time}))
+            'name': entry.name,
+            'logdir': _trim_notebook_dir(entry.logdir),
+            'reload_time': entry.thread.reload_time}))
 
 
 class TbInstanceHandler(APIHandler):
@@ -52,7 +52,7 @@ class TbInstanceHandler(APIHandler):
             entry = manager[name]
             self.finish(json.dumps({
                 'name': entry.name,
-                'logdir':  _trim_notebook_dir(entry.logdir),
+                'logdir': _trim_notebook_dir(entry.logdir),
                 'reload_time': entry.thread.reload_time}))
         else:
             raise web.HTTPError(

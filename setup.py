@@ -52,9 +52,9 @@ name = 'jupyter_tensorboard'
 setup(
     name=name,
     version=find_version(name, '__init__.py'),
-    author='lspvic',
-    author_email='lspvic@qq.com',
-    url='http://github.com/lspvic/jupyter_tensorboard',
+    author='Michael Li',
+    author_email='limichael@fb.com',
+    url='http://github.com/ml7/jupyter_tensorboard',
     license='MIT License',
     description=(
         'Start tensorboard in Jupyter! '
@@ -67,7 +67,7 @@ setup(
     entry_points={
         'console_scripts': [
             'jupyter-tensorboard = jupyter_tensorboard.application:main',
-         ],
+        ],
     },
     scripts=[os.path.join('scripts', p) for p in [
         'jupyter-tensorboard',
