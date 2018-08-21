@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .handlers import load_jupyter_server_extension   # noqa
 
 __version__ = "0.1.0"
