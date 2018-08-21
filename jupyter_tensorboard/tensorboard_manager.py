@@ -64,7 +64,7 @@ def TensorBoardWSGIApp(logdir, plugins, multiplexer,
 application.TensorBoardWSGIApp = TensorBoardWSGIApp
 
 
-class TensorBoardManger(dict):
+class TensorBoardManager(dict):
 
     def __init__(self):
         self._logdir_dict = {}
@@ -104,4 +104,4 @@ class TensorBoardManger(dict):
             raise Exception("There's no TensorBoard instance named %s" % name)
 
 
-manager = TensorBoardManger()
+manager = TensorBoardManager()
